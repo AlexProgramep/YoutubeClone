@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container my-4">
+    <h3>Результати пошуку: </h3>
+    {% if all_videos %}
+    <div class="row">
+        {% for video in all_videos %}
+        <div class="col-3">
+
+          <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+            <img src="{% static video.thumbnail.url %}" class="w-100">
+          </a>
+          <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+            <h6>{{video.title}}</h6>  
+          </a>
+          <span class="text-muted">{{video.video_views.all.count}} переглядiв • {{video.pub_date}}</span>
+
+        </div>
+    {% endfor %} 
+    {% elif user_obj %}
+    <div class="row">
+    {% for user in user_obj %}
+    <div class="col-4">
+    <div class="card my-3" style="width: 18rem;">
+        <img src="{% static user.userdata.profile_pic.url %}" class="img-thumbnail card-img-top" style="height: 250px;" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{user.username}}</h5>
+            <p class="card-text">{{user.userdata.about|truncatewords:6}}</p>
+            <a href="{% url 'profile' user.username %}" class="btn btn-primary">Перегляд профілю</a>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <h5>Нічого не знайдено.</h5>
+    </div>
+    {% endif %}
+</div>  
+{% endblock %}
+    

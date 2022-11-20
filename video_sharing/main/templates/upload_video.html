@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body%}
+
+<div class="container border py-4 my-4 w-75">
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Назва</label>
+            <input type="text" name="title" class="form-control" id="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="desc" class="form-label">Опис</label>
+            <textarea class="form-control" name="desc" id="desc" style="height: 200px;" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="filename" class="form-label">Оберіть відеофайл</label>
+            <input type="file" name="fileName" class="form-control" id="filename" accept="video/*" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="thumb" class="form-label">Оберiть прев'ю</label>
+            <input type="file" name="thumbnail_img" class="form-control" id="thumb" accept="image/*" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Оберiть категорiю</label>
+            <select class="form-control" name="category">
+                <option>Наука & Технології</option>
+                <option>Мода</option>
+                <option>Їжа</option>
+                <option>Блоги</option>
+                <option>Освіта</option>
+                <option>Ігри</option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Завантажити</button>
+    </form>
+</div>
+
+{% endblock %}
